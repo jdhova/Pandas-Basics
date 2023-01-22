@@ -32,7 +32,7 @@ myvar = pd.Series(a)
 print(myvar)
 
 ```
-### Bulding table with Pandas and finding the index and with Numpy
+#### Bulding table with Pandas and finding the index and with Numpy
 
 ```
 
@@ -53,7 +53,7 @@ print('withnumpy',myvars[0,2])
 
 
 ```
-### Creating Table Keys PF and FK with Pandas
+#### Creating Table Keys PF and FK with Pandas
 ```
 
 import pandas as pd
@@ -66,6 +66,8 @@ print(myvar)
 
 
 ```
+
+### CLEANING DATA
 ### Pandas can also load data from csv and have it imported for cleaning.
 
 ```
@@ -81,3 +83,67 @@ print(pd.options.display.max_rows)  this shows max rows
 pd.options.display.max_rows = 9999 this sets how many rows to return
 
 ```
+
+#### removing date rows 
+```
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+df['Date'] = pd.to_datetime(df['Date'])
+
+df.dropna(subset=['Date'], inplace = True)
+
+print(df.to_string())
+
+
+```
+
+#### Replacin values N/A in claories with 130
+```
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+df["Calories"].fillna(130, inplace = True)
+
+```
+#### Replacing value witht he mode median and mean
+
+```
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+x = df["Calories"].mean()
+
+df["Calories"].fillna(x, inplace = True)
+
+```
+
+#### Looping tru and changing the values of Index to 120 or a particular value
+```
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+for x in df.index:
+  if df.loc[x, "Duration"] > 120:
+    df.loc[x, "Duration"] = 120
+
+print(df.to_string())
+
+```
+#### Removing Duplicates
+
+```
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+df.drop_duplicates(inplace = True)
+
+print(df.to_string())
+
+```
+
